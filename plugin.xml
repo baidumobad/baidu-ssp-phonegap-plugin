@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.baidu.cordova.plugin.BaiduAdPlugin"
+        version="1.0.0">
+    <name>BaiduAdPlugin</name>
+    <description>Baidu SSP Ad Phonegap and cordova Plugin</description>
+    <license>Apache 2.0 License</license>
+    <engines>
+        <engine name="cordova" version=">=3.5.0" />
+    </engines>
+    <!---->
+    <js-module src="www/BaiduAdPlugin.js" name="BaiduAd">
+        <clobbers target="window.baiduAd"/>
+    </js-module>
+    
+    
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BaiduAdPlugin" >
+                <param name="android-package" value="com.baidu.cordova.plugin.BaiduAdPlugin"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+           <activity android:name="com.baidu.mobads.AppActivity" android:configChanges="keyboard|keyboardHidden|orientation"/> 
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+             <uses-permission android:name="android.permission.INTERNET"/>
+			    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+			    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+			    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+			    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        </config-file>
+        
+        <source-file src="src/android/libs/Baidu_MobAds_SDK.jar" target-dir="libs/"/>
+    </platform>
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BaiduAdPlugin">
+                <param name="ios-package" value="BaiduAdPlugin" />
+            </feature>
+        </config-file>
+        <source-file  src="src/ios/BaiduAdPlugin.m" />
+        <header-file  src="src/ios/BaiduAdPlugin.h" />
+        <framework src="src/ios/BaiduMobAPI.framework" custom="true" />
+        
+        <!-- iOS development frameworks need by Baidu mobad framework -->
+        <framework src="UIKit.framework" />
+        <framework src="CoreLocation.framework" />
+        <framework src="MediaPlayer.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="CoreMotion.framework" />
+        <framework src="StoreKit.framework" />
+        <framework src="QuartzCore.framework" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="Security.framework" />
+        <framework src="WebKit.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="MessageUI.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="AdSupport.framework" />
+        <framework src="libz.dylib" />
+         
+         
+    </platform>
+</plugin>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <title>baidu ssp demo</title>
+    <style>
+        .bodyStyle{
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body >
+<div class="bodyStyle">
+    <h1>baidu ssp demo</h1>
+    <lu>
+        <li><a href="javascript:baiduAd.cacheInterstitial();">load Interstitial</a></li>
+        <br/>
+        <li><a href="javascript:showInterstitial();">show Interstitial</a></li>
+        <br/>
+        <li><a href="javascript:showTestBanner();">show  banner relative</a></li>
+        <br/>
+        <li><a href="javascript:baiduAd.showBannerAbsolute(0,70);">show banner absolute</a></li>
+        <br/>
+        <li><a href="javascript:baiduAd.hideBanner()">hide banner</a></li>
+    </lu>
+
+</div>
+<div id="alertdiv"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript">
+    function showTestBanner(){
+        baiduAd.showBanner(baiduAd.AD_POSITION.BOTTOM_CENTER);
+    }
+    function showInterstitial(){
+        baiduAd.isInterstitialReady(function(isReady){
+            if(isReady){
+                baiduAd.showInterstitial();
+                document.getElementById("alertdiv").innerHTML="";
+            }
+        });
+    }
+    function onInterstitialReceive (message) {
+       // alert(message.type+" ,you can show it now");
+        document.getElementById("alertdiv").innerHTML="load full success ,you can show it now";
+    }
+    function onInterstitialFail (message) {
+        var msg=message.data;
+        if(msg==undefined){
+            msg=message.data;
+        }
+        document.getElementById("alertdiv").innerHTML="load full fail: "+message.type+"  "+msg;
+    }
+    function onBannerFail (message) {
+        var msg=message.data;
+        if(msg==undefined){
+            msg=message.data;
+        }
+        document.getElementById("alertdiv").innerHTML="load banner fail: "+message.type+"  "+msg;
+    }
+    function onDeviceReady() {
+        baiduAd.initBanner("appID", "banner ID");
+        baiduAd.initInterstitial("appID", "interstitial ID");
+        document.addEventListener(baiduAd.AdEvent.onInterstitialReceive, onInterstitialReceive, false);
+        document.addEventListener(baiduAd.AdEvent.onInterstitialFailedReceive, onInterstitialFail, false);
+        document.addEventListener(baiduAd.AdEvent.onBannerFailedReceive, onBannerFail, false);
+    }
+
+    document.addEventListener('deviceready',onDeviceReady, false);
+</script>
+</body>
+</html>
