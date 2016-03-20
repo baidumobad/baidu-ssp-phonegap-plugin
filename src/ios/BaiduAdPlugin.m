@@ -6,16 +6,14 @@
 #pragma mark   private util Function------------------
 -(void) fireEvent:(NSString*) eventType withEventData:(NSString*) jsonData{
     NSString *json=[NSString stringWithFormat:@"cordova.fireDocumentEvent('%@','{data:%@}',false);",eventType,jsonData];
-    [self writeJavascript:json];
+    [[self commandDelegate]evalJs:json];
+   // [self writeJavascript:json];
 }
 #pragma mark   CDVPlugin Function------------------
-- (CDVPlugin *)initWithWebView:(UIWebView *)theWebView {
-    self = (BaiduAdPlugin *)[super initWithWebView:theWebView];
-    if (self) {
-        baiduAPI=[[BaiduAPI alloc] init];
-        baiduAPI.plugin=self;
-    }
-    return self;
+- (void)pluginInitialize
+{
+    baiduAPI=[[BaiduAPI alloc] init];
+    baiduAPI.plugin=self;
 }
 #pragma mark   Cordova API Function------------------
 - (void)baiduHideBanner:(CDVInvokedUrlCommand *)command {
@@ -24,8 +22,8 @@
 }
 - (void)baiduShowBannerAbsolute:(CDVInvokedUrlCommand *)command {
     NSDictionary *params = [command argumentAtIndex:0];
-    int adx=(int)[params integerValueForKey:@"x" defaultValue:0];
-    int ady=(int)[params integerValueForKey:@"y" defaultValue:0];
+    int adx=[[params objectForKey:@"x"] intValue ];
+    int ady=[[params objectForKey:@"y"] intValue];
     [baiduAPI baiduShowBannerAbsolute:adx withY:ady];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }

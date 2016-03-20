@@ -2,7 +2,7 @@
 ====================
 
 百度联盟phonegap(cordova)插件，能很方便的在html5 hybrid应用（如cordova，xdk，appcan，webx5，jqmobile、sencha touch,ionic）中接入百度ssp联盟广告，支持ios和android平台。<br/>
-基于phonegap 3.4 或 cordova 3.5编译
+基于phonegap 3.4 或 cordova 5编译
 
 ### 怎么在html5应用中加入百度ssp移动联盟广告呢?可以使用cordova命令行远程或者本地方式安装本百度移动广告插件
 在命令行中输入<br/>
