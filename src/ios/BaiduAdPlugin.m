@@ -17,35 +17,31 @@
 }
 #pragma mark   Cordova API Function------------------
 - (void)baiduHideBanner:(CDVInvokedUrlCommand *)command {
-    [baiduAPI baiduHideBanner];
+    NSString* bname=[command argumentAtIndex:0];
+    [baiduAPI baiduHideBanner:bname];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 - (void)baiduShowBannerAbsolute:(CDVInvokedUrlCommand *)command {
     NSDictionary *params = [command argumentAtIndex:0];
     int adx=[[params objectForKey:@"x"] intValue ];
     int ady=[[params objectForKey:@"y"] intValue];
-    [baiduAPI baiduShowBannerAbsolute:adx withY:ady];
+    NSString* appID=[params objectForKey:@"appID"];
+    NSString* bannerID=[params objectForKey:@"bannerID"];
+    NSString* bannerName=[params objectForKey:@"bannerName"];
+    [baiduAPI baiduShowBannerAbsolute:adx withY:ady appID:appID bannerID:bannerID bannerName:bannerName];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 - (void)baiduShowBanner:(CDVInvokedUrlCommand *)command {
-    int position= (int)[[command argumentAtIndex:0] integerValue];
-    [baiduAPI baiduShowBanner:position];
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
-- (void)baiduInitBanner:(CDVInvokedUrlCommand *)command {
     NSDictionary *params = [command argumentAtIndex:0];
-    NSString *adid=[params objectForKey:@"appID"];
-    NSString *key=[params objectForKey:@"bannerID"];
-    [baiduAPI baiduInitBanner:adid withKey:key];
+    int adx=[[params objectForKey:@"position"] intValue ];
+    int ady=[[params objectForKey:@"marginY"] intValue];
+    NSString* appID=[params objectForKey:@"appID"];
+    NSString* bannerID=[params objectForKey:@"bannerID"];
+    NSString* bannerName=[params objectForKey:@"bannerName"];
+    [baiduAPI baiduShowBanner:adx marginY:ady appID:appID bannerID:bannerID bannerName:bannerName];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
-- (void)baiduInitInterstitial:(CDVInvokedUrlCommand *)command {
-    NSDictionary *params = [command argumentAtIndex:0];
-    NSString *adid=[params objectForKey:@"appID"];
-    NSString *key=[params objectForKey:@"fullID"];
-    [baiduAPI baiduInitInterstitial:adid withKey:key];
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
+
 - (void)baiduIsInterstitialReady:(CDVInvokedUrlCommand *)command {
     BOOL isready=[baiduAPI baiduIsInterstitialReady];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:isready] callbackId:command.callbackId];
@@ -55,7 +51,17 @@
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 - (void)baiduCacheInterstitial:(CDVInvokedUrlCommand *)command {
-    [baiduAPI baiduCacheInterstitial];
+    NSDictionary *params = [command argumentAtIndex:0];
+    NSString* appID=[params objectForKey:@"appID"];
+    NSString* bannerID=[params objectForKey:@"interstitialID"];
+    [baiduAPI baiduCacheInterstitial:appID interstitialID:bannerID];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+}
+- (void)baiduShowSplash:(CDVInvokedUrlCommand *)command{
+    NSDictionary *params = [command argumentAtIndex:0];
+    NSString* appID=[params objectForKey:@"appID"];
+    NSString* bannerID=[params objectForKey:@"splashID"];
+    [baiduAPI baiduShowSplash:appID interstitialID:bannerID];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 @end

@@ -27,73 +27,57 @@ var baiduAd = {
         onInterstitialFailedReceive:"onInterstitialFailedReceive",
         onInterstitialLeaveApplication:"onInterstitialLeaveApplication",
         onInterstitialPresent:"onInterstitialPresent",
-        onInterstitialReceive:"onInterstitialReceive"
+        onInterstitialReceive:"onInterstitialReceive",
+        onSplashPresent:"onSplashPresent",
+        onSplashFailed:"onSplashFailed",
+        onSplashDismissed:"onSplashDismissed",
+        onSplashClick:"onSplashClick"
     },
     FunNames:{
         hideBanner:"baiduHideBanner",
         showBannerAbsolute:"baiduShowBannerAbsolute",
         showBanner:"baiduShowBanner",
-        initBanner:"baiduInitBanner",
-        initInterstitial:"baiduInitInterstitial",
+        initBanner:"baiduShowSplash",
         isInterstitialReady:"baiduIsInterstitialReady",
         showInterstitial:"baiduShowInterstitial",
         cacheInterstitial:"baiduCacheInterstitial",
         disposePlugin : "disposePlugin"
     },
-    hideBanner: function ( successCallback, failureCallback) {
+	    hideBanner: function (bannerName, successCallback, failureCallback) {
         cordova.exec(
             successCallback,
             failureCallback,
             'BaiduAdPlugin',
             'baiduHideBanner',
             [
+            bannerName
             ]
         );
     },
-    showBannerAbsolute: function (x,y, successCallback, failureCallback) {
+    showBannerAbsolute: function (x,y,appID,bannerID,bannerName, successCallback, failureCallback) {
         cordova.exec(
             successCallback,
             failureCallback,
             'BaiduAdPlugin',
             'baiduShowBannerAbsolute',
             [
-                {x:x,y:y}
+    {x:x,y:y,bannerName:bannerName,appID:appID,bannerID:bannerID}
             ]
         );
     },
-    showBanner: function (position, successCallback, failureCallback) {
+    showBanner: function (position,marginY,appID,bannerID,bannerName, successCallback, failureCallback) {
         cordova.exec(
             successCallback,
             failureCallback,
             'BaiduAdPlugin',
             'baiduShowBanner',
             [
-                position
+    {position:position,marginY:marginY,appID:appID,bannerID:bannerID,bannerName:bannerName}
             ]
         );
     },
-    initBanner: function (appID,bannerID, successCallback, failureCallback) {
-        cordova.exec(
-            successCallback,
-            failureCallback,
-            'BaiduAdPlugin',
-            'baiduInitBanner',
-            [
-    {'appID': appID, 'bannerID':bannerID}
-            ]
-        );
-    },
-    initInterstitial: function (appID,fullID, successCallback, failureCallback) {
-        cordova.exec(
-            successCallback,
-            failureCallback,
-            'BaiduAdPlugin',
-            'baiduInitInterstitial',
-            [
-    {'appID':appID,'fullID':fullID}
-            ]
-        );
-    },
+    
+   
 
     isInterstitialReady: function ( successCallback, failureCallback) {
         cordova.exec(
@@ -119,14 +103,25 @@ var baiduAd = {
         );
     },
 
-    cacheInterstitial: function (successCallback, failureCallback) {
+    cacheInterstitial: function (appID,interstitialID,successCallback, failureCallback) {
         cordova.exec(
             successCallback,
             failureCallback,
             'BaiduAdPlugin',
             'baiduCacheInterstitial',
             [
-
+	{appID:appID,interstitialID:interstitialID}
+            ]
+        );
+    },
+    showSplash: function (appID,splashID,successCallback, failureCallback) {
+        cordova.exec(
+            successCallback,
+            failureCallback,
+            'BaiduAdPlugin',
+            'baiduShowSplash',
+            [
+	{appID:appID,splashID:splashID}
             ]
         );
     },
@@ -137,7 +132,7 @@ var baiduAd = {
             failureCallback,
             'BaiduAdPlugin',
             'disposePlugin', [
-                {}
+                
             ]);
     }
 };

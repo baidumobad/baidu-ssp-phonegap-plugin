@@ -15,14 +15,15 @@
 @property(nonatomic,retain) id<WebPluginDelegate> plugin;
 -(void) fireEvent:(NSString*) eventType withEventData:(NSString*) jsonString;
 
-- (void)baiduHideBanner;
-- (void)baiduShowBannerAbsolute:(int) x withY:(int) y;
-- (void)baiduShowBanner:(int) position;
-- (void)baiduInitBanner:(NSString *)adid withKey:(NSString*)key ;
-- (void)baiduInitInterstitial:(NSString *)adid withKey:(NSString*)key ;
+- (void)baiduHideBanner:(NSString*)bname;
+- (void)baiduShowBannerAbsolute:(int) x withY:(int) y appID:(NSString*)_appid bannerID:(NSString*)_bannerID bannerName:(NSString*)_bname;
+- (void)baiduShowBanner:(int) position marginY:(int)my appID:(NSString*)_appid bannerID:(NSString*)_bannerID bannerName:(NSString*)_bname;
+//- (void)baiduInitBanner:(NSString *)adid withKey:(NSString*)key ;
+//- (void)baiduInitInterstitial:(NSString *)adid withKey:(NSString*)key ;
 - (BOOL)baiduIsInterstitialReady ;
 - (void)baiduShowInterstitial;
-- (void)baiduCacheInterstitial;
+- (void)baiduCacheInterstitial:(NSString*) appID interstitialID:(NSString*) fullids;
+- (void)baiduShowSplash:(NSString*) appID interstitialID:(NSString*) splashID;
 //- (NSString*)  baiduURL;
 //- (void) updateBaiduKey;
 @end
