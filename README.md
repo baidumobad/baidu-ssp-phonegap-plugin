@@ -15,10 +15,10 @@ cordova plugin add https://github.com/baidumobad/baidu-ssp-phonegap-plugin.git
 cordova plugin add c:\baidu-ssp-phonegap-plugin
 ```
 ### 在phonegap 类的html5应用中展示百度移动广告横幅类型广告
-测试前把appID和bannerID替换为你在百度ssp申请到的真实的参数
+测试前把appID和bannerID替换为你在百度ssp申请到的真实的参数,    
+如下例子中0是y方向上偏移，bannername是横幅的名称，如果要一个界面显示多个，传入不同名称就会创建不同的横幅
 ```
-        baiduAd.initBanner("appID", "bannerID");//初始化banner广告
-        baiduAd.showBanner(8);//用相对位置的方式展示广告，具体的相对位置的值AD_POSITION中
+baiduAd.showBanner(baiduAd.AD_POSITION.BOTTOM_CENTER,0,"app id", "banner id","bannerName");//用相对位置的方式展示广告，具体的相对位置的值AD_POSITION中
 
 ```
 ### 在phonegap类型的html5应用中展示百度ssp移动联盟插屏广告：
@@ -28,8 +28,7 @@ cordova plugin add c:\baidu-ssp-phonegap-plugin
      baiduAd.showInterstitial();//加载完成后展示广告
  }
   document.addEventListener('onInterstitialReceive', onInterstitialReceive, false);//监听广告加载成功事件
-  baiduAd.initInterstitial("appID", "fullID");//创建广告
-  baiduAd.cacheInterstitial();//创建全屏完成后加载广告
+  baiduAd.cacheInterstitial("app id", "interstitial id");//请求加载插屏广告
 ```
 
 ### 百度移动联盟ssp广告事件的处理
@@ -38,7 +37,7 @@ cordova plugin add c:\baidu-ssp-phonegap-plugin
 
 ### 更多接口
 通过绝对定位的方式展示banner广告<br/>
-showBannerAbsolute(x,y)<br/>
+baiduAd.showBannerAbsolute(x,y,"app id", "banner id","bannerName2");<br/>
 隐藏banner广告<br/>
 hideBanner()<br/>
 判断全屏广告是否已经加载完成<br/>
