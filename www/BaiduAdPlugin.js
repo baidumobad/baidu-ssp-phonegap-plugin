@@ -1,14 +1,14 @@
 var baiduAd = {
 	 AD_POSITION: {
-	     TOP_LEFT:int=1,
-		 TOP_CENTER:int=2,
-		 TOP_RIGHT:int=3,
-		 MIDDLE_LEFT:int=4,
-		 MIDDLE_CENTER:int=5,
-		 MIDDLE_RIGHT:int=6,
-		 BOTTOM_LEFT:int=7,
-		 BOTTOM_CENTER:int=8,
-		 BOTTOM_RIGHT:int=9
+	     TOP_LEFT:1,
+		 TOP_CENTER:2,
+		 TOP_RIGHT:3,
+		 MIDDLE_LEFT:4,
+		 MIDDLE_CENTER:5,
+		 MIDDLE_RIGHT:6,
+		 BOTTOM_LEFT:7,
+		 BOTTOM_CENTER:8,
+		 BOTTOM_RIGHT:9
     },
     AD_SIZE: {
         BANNER: "BANNER",
